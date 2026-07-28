@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.11";
+const APP_VERSION = "v1.12";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
 const DEFAULT_SETTINGS = {
@@ -640,6 +640,7 @@ function wirePanelToggle() {
   const panel = document.getElementById("panel");
   toggleBtn.addEventListener("click", () => {
     const hidden = panel.classList.toggle("panel-hidden");
+    document.body.classList.toggle("panel-hidden", hidden);
     toggleBtn.textContent = hidden ? "☰" : "✕";
     toggleBtn.setAttribute("aria-label", hidden ? "Show panel" : "Hide panel");
     toggleBtn.setAttribute("aria-expanded", String(!hidden));

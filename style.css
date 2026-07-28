@@ -384,10 +384,6 @@ html, body {
 }
 
 @media (max-width: 700px) {
-  :root {
-    --panel-width: 50vw;
-  }
-
   #panel {
     padding: 0.85rem;
   }
@@ -419,5 +415,39 @@ html, body {
 
   #search-results li {
     padding: 0.7rem 0.4rem;
+  }
+}
+
+/* Portrait mobile: panel drops down from the top as a half-height sheet,
+   so text gets the full screen width instead of being squeezed sideways. */
+@media (max-width: 700px) and (orientation: portrait) {
+  #panel {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 50vh;
+    border-left: none;
+    border-bottom: 1px solid var(--panel-border);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(0);
+  }
+
+  #panel.panel-hidden {
+    transform: translateY(-100%);
+  }
+
+  /* The top sheet would otherwise cover the top-left zoom control while
+     open — push map controls below it. */
+  body:not(.panel-hidden) .leaflet-top {
+    top: calc(50vh + 0.5rem);
+    transition: top 0.2s ease-out;
+  }
+}
+
+/* Landscape mobile: keep the side panel, just narrower than desktop. */
+@media (max-width: 700px) and (orientation: landscape) {
+  :root {
+    --panel-width: 50vw;
   }
 }
