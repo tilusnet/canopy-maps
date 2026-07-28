@@ -39,6 +39,8 @@ All you need are the URLs of the map layers you want visualised:
 
 ```bash
 cp config.example.js config.js   # then add your Mapbox access token
+cp config.example.json config.json
+cp layers.example.json layers.json
 python3 -m http.server 8000
 ```
 
