@@ -1,11 +1,11 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
+const APP_VERSION = "v1.01";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
 const DEFAULT_SETTINGS = {
   appTitle: "Canopy Maps",
   appDescription: "Stacking maps with transparency",
-  footerText: "tilusNet Labs · Canopy Maps v1.0",
   map: {
     center: [51.5074, -0.1278],
     defaultZoom: 12,
@@ -83,7 +83,9 @@ function applyBrandingSettings() {
   document.title = settings.appTitle;
   document.getElementById("app-title").textContent = settings.appTitle;
   document.getElementById("app-description").textContent = settings.appDescription;
-  document.getElementById("app-footer").textContent = settings.footerText;
+  document.getElementById("app-footer").innerHTML =
+    'tilusNet Labs · <a href="https://github.com/tilusnet/canopy-maps" target="_blank" rel="noopener">Canopy Maps</a> ' +
+    APP_VERSION;
 }
 
 function createMap(center, zoom) {

@@ -1,7 +1,6 @@
 {
   "appTitle": "Canopy Maps",
   "appDescription": "Stacking maps with transparency",
-  "footerText": "tilusNet Labs \u00b7 Canopy Maps v1.0",
   "map": {
     "center": [
       51.5074,
