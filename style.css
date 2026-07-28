@@ -38,7 +38,19 @@ html, body {
   width: min(85vw, var(--panel-width));
   height: 100%;
   overflow-y: auto;
-  background: var(--panel-bg);
+  /* Scroll-linked shadow hint: the two "local" gradients scroll with the
+     content and fade the edge once you're there; the two "scroll" radial
+     gradients stay put and only show through the gap those leave, so a
+     shadow appears at an edge only while there's more content past it. */
+  background:
+    linear-gradient(var(--panel-bg) 30%, transparent) center top,
+    linear-gradient(transparent, var(--panel-bg) 70%) center bottom,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.35), transparent) center top,
+    radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.35), transparent) center bottom;
+  background-repeat: no-repeat;
+  background-color: var(--panel-bg);
+  background-size: 100% 2.5rem, 100% 2.5rem, 100% 1.75rem, 100% 1.75rem;
+  background-attachment: local, local, scroll, scroll;
   border-left: 1px solid var(--panel-border);
   padding: 1rem;
   box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
