@@ -57,7 +57,10 @@ don't require touching the JS:
   falls back to the built-in default in `app.js`.
 - **`config.js`** *(git-ignored, not committed)* — holds your Mapbox access
   token, used for the tree-layer tiles and the place-search API. Copy
-  `config.example.js` to get started.
+  `config.example.js` to get started. Any key you add to `window.APP_CONFIG`
+  here can be referenced in `layers.json` layer URLs as `{keyName}` — it gets
+  substituted in at load time, so tokens never need to be hardcoded into
+  `layers.json`.
 
 ### `config.json` fields
 

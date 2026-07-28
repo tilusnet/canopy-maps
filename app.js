@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.02";
+const APP_VERSION = "v1.1";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
 const DEFAULT_SETTINGS = {
@@ -127,8 +127,8 @@ async function loadLayerConfigs() {
 }
 
 function resolveUrl(url) {
-  const token = window.APP_CONFIG && window.APP_CONFIG.mapboxAccessToken;
-  return url.replace("{mapboxAccessToken}", token || "");
+  const config = window.APP_CONFIG || {};
+  return url.replace(/{(\w+)}/g, (match, key) => (key in config ? config[key] : match));
 }
 
 function saveLayerState() {
