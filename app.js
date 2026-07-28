@@ -90,7 +90,7 @@ function applyBrandingSettings() {
 
 function createMap(center, zoom) {
   const m = L.map("map", { zoomControl: false }).setView(center, zoom);
-  L.control.zoom({ position: "bottomleft" }).addTo(m);
+  L.control.zoom({ position: "topleft" }).addTo(m);
   return m;
 }
 
