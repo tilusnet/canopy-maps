@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.1";
+const APP_VERSION = "v1.11";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
 const DEFAULT_SETTINGS = {

@@ -385,7 +385,7 @@ html, body {
 
 @media (max-width: 700px) {
   :root {
-    --panel-width: 88vw;
+    --panel-width: 50vw;
   }
 
   #panel {
