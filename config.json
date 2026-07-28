@@ -1,0 +1,23 @@
+{
+  "appTitle": "Canopy Maps",
+  "appDescription": "Stacking maps with transparency",
+  "footerText": "tilusNet Labs \u00b7 Canopy Maps v1.0",
+  "map": {
+    "center": [
+      51.5074,
+      -0.05
+    ],
+    "defaultZoom": 14,
+    "locateZoom": 15
+  },
+  "search": {
+    "bbox": "-0.61,51.28,0.32,51.70",
+    "debounceMs": 300,
+    "minQueryLength": 3,
+    "resultLimit": 5
+  },
+  "geolocation": {
+    "timeoutMs": 10000,
+    "watchMaxAgeMs": 5000
+  }
+}

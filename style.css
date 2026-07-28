@@ -1,0 +1,423 @@
+:root {
+  --panel-bg: #f7f6f3;
+  --panel-border: #ddd8d0;
+  --accent: #2e6b3e;
+  --text: #22271f;
+  --text-muted: #6b6f66;
+  --error-bg: #fde8e8;
+  --error-text: #9b1c1c;
+  --panel-width: 320px;
+  --title-color: #5a4333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--text);
+  overflow: hidden;
+}
+
+#map {
+  position: fixed;
+  inset: 0;
+  height: 100%;
+}
+
+/* Panel is a slide-in overlay on every screen size — this is what makes the
+   hide/show button work identically on desktop and mobile, and keeps the
+   map full-bleed underneath at all times. */
+#panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(85vw, var(--panel-width));
+  height: 100%;
+  overflow-y: auto;
+  background: var(--panel-bg);
+  border-left: 1px solid var(--panel-border);
+  padding: 1rem;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
+  transform: translateX(0);
+  transition: transform 0.2s ease-out;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+}
+
+#panel.panel-hidden {
+  transform: translateX(100%);
+}
+
+#panel-toggle {
+  position: fixed;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 600;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.app-header {
+  margin: 2.75rem 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--panel-border);
+  flex: 0 0 auto;
+}
+
+.app-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.app-header-text {
+  min-width: 0;
+}
+
+.app-header h1 {
+  font-size: 1.3rem;
+  margin: 0 0 0.3rem;
+  color: var(--title-color);
+}
+
+.app-description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.panel-section {
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--panel-border);
+  flex: 0 0 auto;
+}
+
+.panel-section:last-of-type {
+  border-bottom: none;
+}
+
+.panel-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  text-align: right;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+
+.panel-section h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin: 0 0 0.6rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.section-header h2 {
+  margin: 0 0 0.6rem;
+}
+
+.chip-btn {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.chip-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text);
+}
+
+.location-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+#search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.icon-btn {
+  flex: 0 0 auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  opacity: 0.9;
+}
+
+.follow-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.follow-row input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.status {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.status.error {
+  color: var(--error-text);
+}
+
+.banner {
+  padding: 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.banner-error {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+#search-results {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+#search-results li {
+  padding: 0.5rem 0.3rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#search-results li:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#layer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#layer-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+#layer-list li:last-child {
+  border-bottom: none;
+}
+
+.layer-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.drag-handle {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: grab;
+  touch-action: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-handle:focus-visible {
+  outline: 2px solid var(--accent);
+  border-radius: 4px;
+}
+
+#layer-list li.dragging {
+  opacity: 0.35;
+}
+
+.drag-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  list-style: none;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  padding: 0.55rem 0.6rem;
+  opacity: 0.95;
+}
+
+.layer-controls-row input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.layer-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.layer-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.layer-caption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.layer-opacity {
+  width: 100%;
+}
+
+.user-location-marker {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.user-location-dot,
+.user-location-pulse {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.user-location-dot {
+  background: #1a73e8;
+  border: 2px solid #fff;
+  box-shadow: 0 0 6px rgba(26, 115, 232, 0.9);
+}
+
+.user-location-pulse {
+  background: rgba(26, 115, 232, 0.45);
+  animation: user-location-pulse 2s ease-out infinite;
+}
+
+@keyframes user-location-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    --panel-width: 88vw;
+  }
+
+  #panel {
+    padding: 0.85rem;
+  }
+
+  #panel-toggle {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.25rem;
+  }
+
+  .icon-btn,
+  #search-input {
+    height: 2.75rem;
+  }
+
+  .drag-handle {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .layer-controls-row input[type="checkbox"] {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .layer-title {
+    font-size: 0.95rem;
+  }
+
+  #search-results li {
+    padding: 0.7rem 0.4rem;
+  }
+}
