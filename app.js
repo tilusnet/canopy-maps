@@ -1,6 +1,6 @@
-const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
-const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.2";
+const LAYER_STATE_STORAGE_KEY = "canopy-maps:layerState:v1";
+const MAP_VIEW_STORAGE_KEY = "canopy-maps:mapView:v1";
+const APP_VERSION = "v1.2.1";
 const MAPBOX_GEOCODING_BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
