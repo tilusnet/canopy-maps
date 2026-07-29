@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.16";
+const APP_VERSION = "v1.2";
 const MAPBOX_GEOCODING_BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
@@ -13,7 +13,6 @@ const DEFAULT_SETTINGS = {
     locateZoom: 15,
   },
   search: {
-    bbox: "-0.61,51.28,0.32,51.70",
     debounceMs: 300,
     minQueryLength: 3,
     resultLimit: 5,
@@ -498,9 +497,11 @@ function wireSearch() {
       return;
     }
 
+    const center = map.getCenter();
+    const proximity = `${center.lng.toFixed(5)},${center.lat.toFixed(5)}`;
     const url =
       `${baseUrl}/${encodeURIComponent(query)}.json` +
-      `?autocomplete=true&limit=${settings.search.resultLimit}&bbox=${settings.search.bbox}` +
+      `?autocomplete=true&limit=${settings.search.resultLimit}&proximity=${proximity}` +
       (token ? `&access_token=${token}` : "");
 
     try {

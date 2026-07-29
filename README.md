@@ -71,7 +71,6 @@ don't require touching the JS:
 | `map.center` | `[lat, lng]` the map opens at on first visit (before any saved view exists). |
 | `map.defaultZoom` | Zoom level used with `map.center` on first visit. The larger the value, the more you zoom in. Typical values 1-22. |
 | `map.locateZoom` | Zoom level snapped to when the user taps "go to my location". |
-| `search.bbox` | `minLon,minLat,maxLon,maxLat` box that biases/restricts place-search results. |
 | `search.debounceMs` | Delay after typing stops before a search request fires. |
 | `search.minQueryLength` | Minimum characters typed before search results are requested. |
 | `search.resultLimit` | Maximum number of place-search results shown. |

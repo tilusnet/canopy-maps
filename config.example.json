@@ -10,7 +10,6 @@
     "locateZoom": 15
   },
   "search": {
-    "bbox": "-0.61,51.28,0.32,51.70",
     "debounceMs": 300,
     "minQueryLength": 3,
     "resultLimit": 5
