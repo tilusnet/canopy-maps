@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.13";
+const APP_VERSION = "v1.14";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
 const DEFAULT_SETTINGS = {
@@ -635,15 +635,30 @@ function wireFollowLocation() {
   });
 }
 
+function setPanelHidden(hidden) {
+  const toggleBtn = document.getElementById("panel-toggle");
+  const panel = document.getElementById("panel");
+  panel.classList.toggle("panel-hidden", hidden);
+  document.body.classList.toggle("panel-hidden", hidden);
+  toggleBtn.textContent = hidden ? "☰" : "✕";
+  toggleBtn.setAttribute("aria-label", hidden ? "Show panel" : "Hide panel");
+  toggleBtn.setAttribute("aria-expanded", String(!hidden));
+}
+
 function wirePanelToggle() {
   const toggleBtn = document.getElementById("panel-toggle");
   const panel = document.getElementById("panel");
   toggleBtn.addEventListener("click", () => {
-    const hidden = panel.classList.toggle("panel-hidden");
-    document.body.classList.toggle("panel-hidden", hidden);
-    toggleBtn.textContent = hidden ? "☰" : "✕";
-    toggleBtn.setAttribute("aria-label", hidden ? "Show panel" : "Hide panel");
-    toggleBtn.setAttribute("aria-expanded", String(!hidden));
+    setPanelHidden(!panel.classList.contains("panel-hidden"));
+  });
+}
+
+function wireHidePanelOnMapTap() {
+  map.on("click", () => {
+    const panel = document.getElementById("panel");
+    if (!panel.classList.contains("panel-hidden")) {
+      setPanelHidden(true);
+    }
   });
 }
 
@@ -720,6 +735,7 @@ async function init() {
 
   map = createMap(initialCenter, initialZoom);
   map.on("moveend", saveMapView);
+  wireHidePanelOnMapTap();
 
   let configs;
   try {
