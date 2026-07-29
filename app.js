@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "canopy-maps:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "canopy-maps:mapView:v1";
-const APP_VERSION = "v1.2.2";
+const APP_VERSION = "v1.2.3";
 const MAPBOX_GEOCODING_BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
@@ -106,18 +106,18 @@ function saveMapView() {
       lng: Number(center.lng.toFixed(5)),
       zoom: map.getZoom(),
     };
-    localStorage.setItem(MAP_VIEW_STORAGE_KEY, JSON.stringify(view));
+    sessionStorage.setItem(MAP_VIEW_STORAGE_KEY, JSON.stringify(view));
   } catch (err) {
-    console.warn("Could not save map view to localStorage:", err);
+    console.warn("Could not save map view to sessionStorage:", err);
   }
 }
 
 function loadSavedMapView() {
   try {
-    const raw = localStorage.getItem(MAP_VIEW_STORAGE_KEY);
+    const raw = sessionStorage.getItem(MAP_VIEW_STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch (err) {
-    console.warn("Could not read saved map view from localStorage:", err);
+    console.warn("Could not read saved map view from sessionStorage:", err);
     return null;
   }
 }
@@ -142,18 +142,18 @@ function saveLayerState() {
       visible: entry.visible,
       opacity: entry.opacity,
     }));
-    localStorage.setItem(LAYER_STATE_STORAGE_KEY, JSON.stringify(saved));
+    sessionStorage.setItem(LAYER_STATE_STORAGE_KEY, JSON.stringify(saved));
   } catch (err) {
-    console.warn("Could not save layer state to localStorage:", err);
+    console.warn("Could not save layer state to sessionStorage:", err);
   }
 }
 
 function loadSavedLayerState() {
   try {
-    const raw = localStorage.getItem(LAYER_STATE_STORAGE_KEY);
+    const raw = sessionStorage.getItem(LAYER_STATE_STORAGE_KEY);
     return raw ? JSON.parse(raw) : null;
   } catch (err) {
-    console.warn("Could not read saved layer state from localStorage:", err);
+    console.warn("Could not read saved layer state from sessionStorage:", err);
     return null;
   }
 }
@@ -234,9 +234,9 @@ function resetToDefaults() {
   renderLayerPanel();
 
   try {
-    localStorage.removeItem(LAYER_STATE_STORAGE_KEY);
+    sessionStorage.removeItem(LAYER_STATE_STORAGE_KEY);
   } catch (err) {
-    console.warn("Could not clear saved layer state from localStorage:", err);
+    console.warn("Could not clear saved layer state from sessionStorage:", err);
   }
 }
 
