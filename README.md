@@ -75,7 +75,7 @@ don't require touching the JS:
 | `search.debounceMs` | Delay after typing stops before a search request fires. |
 | `search.minQueryLength` | Minimum characters typed before search results are requested. |
 | `search.resultLimit` | Maximum number of place-search results shown. |
-| `search.geocodingBaseUrl` | Optional fallback geocoding endpoint, used instead of Mapbox when no `mapboxAccessToken` is set in `config.js`. Must return the same shape as Mapbox's Geocoding API (`{ features: [{ place_name, center: [lon, lat] }] }`) — e.g. a self-hosted proxy in front of Nominatim/Photon. Leave unset to require a Mapbox token for search. |
+| `search.geocodingBaseUrl` | Base URL for place search, defaulting to Mapbox's own Geocoding API. A `mapboxAccessToken` in `config.js` is only *required* while this points at Mapbox directly — override it to route search through your own proxy (e.g. in front of Nominatim/Photon), in which case the token is appended if present but not mandatory. Must return the same shape as Mapbox's Geocoding API (`{ features: [{ place_name, center: [lon, lat] }] }`). |
 | `geolocation.timeoutMs` | How long to wait for a geolocation fix before giving up. |
 | `geolocation.watchMaxAgeMs` | Maximum age of a cached position accepted while following live location. |
 

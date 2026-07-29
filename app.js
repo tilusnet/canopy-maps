@@ -1,6 +1,7 @@
 const LAYER_STATE_STORAGE_KEY = "london-tree-layers:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "london-tree-layers:mapView:v1";
-const APP_VERSION = "v1.15";
+const APP_VERSION = "v1.16";
+const MAPBOX_GEOCODING_BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
 const DEFAULT_SETTINGS = {
@@ -16,7 +17,7 @@ const DEFAULT_SETTINGS = {
     debounceMs: 300,
     minQueryLength: 3,
     resultLimit: 5,
-    geocodingBaseUrl: "",
+    geocodingBaseUrl: MAPBOX_GEOCODING_BASE_URL,
   },
   geolocation: {
     timeoutMs: 10000,
@@ -490,16 +491,17 @@ function wireSearch() {
     }
 
     const token = window.APP_CONFIG && window.APP_CONFIG.mapboxAccessToken;
-    if (!token && !settings.search.geocodingBaseUrl) {
+    const baseUrl = settings.search.geocodingBaseUrl;
+    const isDirectMapbox = baseUrl === MAPBOX_GEOCODING_BASE_URL;
+    if (isDirectMapbox && !token) {
       setStatus("search-status", "Missing Mapbox token — see config.js.", true);
       return;
     }
 
-    const url = token
-      ? `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json` +
-        `?access_token=${token}&autocomplete=true&limit=${settings.search.resultLimit}&bbox=${settings.search.bbox}`
-      : `${settings.search.geocodingBaseUrl}/${encodeURIComponent(query)}.json` +
-        `?autocomplete=true&limit=${settings.search.resultLimit}&bbox=${settings.search.bbox}`;
+    const url =
+      `${baseUrl}/${encodeURIComponent(query)}.json` +
+      `?autocomplete=true&limit=${settings.search.resultLimit}&bbox=${settings.search.bbox}` +
+      (token ? `&access_token=${token}` : "");
 
     try {
       const resp = await fetch(url);
