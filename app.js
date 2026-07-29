@@ -1,6 +1,6 @@
 const LAYER_STATE_STORAGE_KEY = "canopy-maps:layerState:v1";
 const MAP_VIEW_STORAGE_KEY = "canopy-maps:mapView:v1";
-const APP_VERSION = "v1.2.1";
+const APP_VERSION = "v1.2.2";
 const MAPBOX_GEOCODING_BASE_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places";
 
 // Built-in fallbacks, used if config.json is missing or a field is absent.
@@ -92,6 +92,9 @@ function applyBrandingSettings() {
 function createMap(center, zoom) {
   const m = L.map("map", { zoomControl: false }).setView(center, zoom);
   L.control.zoom({ position: "topleft" }).addTo(m);
+  m.attributionControl.addAttribution(
+    '&copy; tilusNet <a href="https://github.com/tilusnet/canopy-maps" target="_blank" rel="noopener">Canopy Maps</a>'
+  );
   return m;
 }
 
